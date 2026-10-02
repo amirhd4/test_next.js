@@ -38,7 +38,126 @@ export default function Package() {
       <Container maxWidth="lg">
         <Grid container spacing={{ xs: 4, md: 8 }} alignItems="center">
 
-          {/* ---------------- سمت راست: محتوا ---------------- */}
+          {/* ---------------- ستون راست: تصویر و بریدگی‌های فیگما (ستون اول در DOM برای RTL) ---------------- */}
+          <Grid size={{ xs: 12, md: 6 }}>
+            <Box
+              sx={{
+                position: 'relative',
+                width: '100%',
+                maxWidth: 480,
+                height: { xs: 320, sm: 400, md: 520 },
+                mx: 'auto',
+                borderRadius: '24px',
+                overflow: 'hidden',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.08)',
+              }}
+            >
+              {/* تصویر اصلی کلبه/طبیعت */}
+              <Box
+                component="img"
+                src={currentPackage.images[activeImageIndex]}
+                alt={currentPackage.title}
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  transition: 'all 0.5s ease-in-out',
+                }}
+              />
+
+              {/* ۱. بریدگی/باکس سفید بالای سمت راست عکس */}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  right: 0,
+                  width: { xs: 120, md: 140 },
+                  height: { xs: 80, md: 100 },
+                  bgcolor: '#F8FAFC',
+                  borderBottomLeftRadius: '20px',
+                  zIndex: 2,
+                }}
+              />
+
+              {/* کارت سفید شناور متنی روی بریدگی بالای راست */}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: 10,
+                  right: 10,
+                  maxWidth: { xs: 100, md: 120 },
+                  p: 1.2,
+                  bgcolor: '#FFFFFF',
+                  borderRadius: '12px',
+                  boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
+                  zIndex: 3,
+                }}
+              >
+                <Typography fontSize={{ xs: 9.5, md: 11 }} fontWeight={700} sx={{ color: '#1E293B', lineHeight: 1.4 }}>
+                  تجربه اقامتی اصیل در دل طبیعت شمال
+                </Typography>
+              </Box>
+
+              {/* ۲. بریدگی‌های تزئینی (در تبلت و دسکتاپ) */}
+              <Box
+                sx={{
+                  display: { xs: 'none', sm: 'block' },
+                  position: 'absolute',
+                  top: 0,
+                  left: 80,
+                  width: 60,
+                  height: 60,
+                  bgcolor: '#F8FAFC',
+                  borderBottomLeftRadius: '16px',
+                  borderBottomRightRadius: '16px',
+                  zIndex: 2,
+                }}
+              />
+              <Box
+                sx={{
+                  display: { xs: 'none', sm: 'block' },
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 90,
+                  width: 70,
+                  height: 80,
+                  bgcolor: '#F8FAFC',
+                  borderTopLeftRadius: '16px',
+                  borderTopRightRadius: '16px',
+                  zIndex: 2,
+                }}
+              />
+
+              {/* خطوط اسلایدر اسلاید عکس‌ها */}
+              <Stack
+                direction="row"
+                spacing={1}
+                sx={{
+                  position: 'absolute',
+                  bottom: { xs: 15, md: 25 },
+                  right: { xs: 20, md: 30 },
+                  zIndex: 3,
+                }}
+              >
+                {currentPackage.images.map((_, index) => (
+                  <Box
+                    key={index}
+                    onClick={() => setActiveImageIndex(index)}
+                    sx={{
+                      width: index === activeImageIndex ? 32 : 16,
+                      height: 4,
+                      borderRadius: 2,
+                      bgcolor: index === activeImageIndex ? '#FFFFFF' : 'rgba(255, 255, 255, 0.4)',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease',
+                    }}
+                  />
+                ))}
+              </Stack>
+            </Box>
+          </Grid>
+
+          {/* ---------------- ستون چپ: اطلاعات متنی و دکمه‌ها (ستون دوم در DOM) ---------------- */}
           <Grid size={{ xs: 12, md: 6 }}>
             <Stack spacing={3} alignItems="flex-start">
               <Box>
@@ -52,7 +171,7 @@ export default function Package() {
                 </Typography>
               </Box>
 
-              {/* سوئیتچ پکیج‌ها (افزوده شده جهت کارایی بهتر) */}
+              {/* دکمه‌های سوئیچ بین پکیج‌ها */}
               <Stack direction="row" spacing={1}>
                 {packages.map((pkg, idx) => (
                   <Paper
@@ -88,7 +207,7 @@ export default function Package() {
                 </Typography>
               </Box>
 
-              {/* ویژگی‌ها: تنظیم ریسپانسیو شبکه‌ای */}
+              {/* ویژگی‌ها (ایتم‌های باکس سفید) */}
               <Grid container spacing={1.5} width="100%">
                 {currentPackage.features.map((feature) => (
                   <Grid key={feature.id} size={{ xs: 6, sm: 3 }}>
@@ -126,6 +245,7 @@ export default function Package() {
                 ))}
               </Grid>
 
+              {/* دکمه رزرو و قیمت */}
               <Stack
                 direction={{ xs: 'column-reverse', sm: 'row' }}
                 justifyContent="space-between"
@@ -166,117 +286,6 @@ export default function Package() {
             </Stack>
           </Grid>
 
-          <Grid size={{ xs: 12, md: 6 }}>
-            <Box
-              sx={{
-                position: 'relative',
-                width: '100%',
-                maxWidth: 480,
-                height: { xs: 320, sm: 400, md: 520 },
-                mx: 'auto',
-                borderRadius: '24px',
-                overflow: 'hidden',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.08)',
-              }}
-            >
-              <Box
-                component="img"
-                src={currentPackage.images[activeImageIndex]}
-                alt={currentPackage.title}
-                sx={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  transition: 'all 0.5s ease-in-out',
-                }}
-              />
-
-              <Box
-                sx={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: { xs: 120, md: 140 },
-                  height: { xs: 80, md: 100 },
-                  bgcolor: '#F8FAFC',
-                  borderBottomRightRadius: '20px',
-                  zIndex: 2,
-                }}
-              />
-              <Box
-                sx={{
-                  position: 'absolute',
-                  top: 10,
-                  left: 10,
-                  maxWidth: { xs: 100, md: 120 },
-                  p: 1.2,
-                  bgcolor: '#FFFFFF',
-                  borderRadius: '12px',
-                  boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
-                  zIndex: 3,
-                }}
-              >
-                <Typography fontSize={{ xs: 9.5, md: 11 }} fontWeight={700} sx={{ color: '#1E293B', lineHeight: 1.4 }}>
-                  تجربه اقامتی اصیل در دل طبیعت شمال
-                </Typography>
-              </Box>
-
-              <Box
-                sx={{
-                  display: { xs: 'none', sm: 'block' },
-                  position: 'absolute',
-                  top: 0,
-                  right: 80,
-                  width: 60,
-                  height: 60,
-                  bgcolor: '#F8FAFC',
-                  borderBottomLeftRadius: '16px',
-                  borderBottomRightRadius: '16px',
-                  zIndex: 2,
-                }}
-              />
-              <Box
-                sx={{
-                  display: { xs: 'none', sm: 'block' },
-                  position: 'absolute',
-                  bottom: 0,
-                  right: 90,
-                  width: 70,
-                  height: 80,
-                  bgcolor: '#F8FAFC',
-                  borderTopLeftRadius: '16px',
-                  borderTopRightRadius: '16px',
-                  zIndex: 2,
-                }}
-              />
-
-              <Stack
-                direction="row"
-                spacing={1}
-                sx={{
-                  position: 'absolute',
-                  bottom: { xs: 15, md: 25 },
-                  left: { xs: 20, md: 30 },
-                  zIndex: 3,
-                }}
-              >
-                {currentPackage.images.map((_, index) => (
-                  <Box
-                    key={index}
-                    onClick={() => setActiveImageIndex(index)}
-                    sx={{
-                      width: index === activeImageIndex ? 32 : 16,
-                      height: 4,
-                      borderRadius: 2,
-                      bgcolor: index === activeImageIndex ? '#FFFFFF' : 'rgba(255, 255, 255, 0.4)',
-                      cursor: 'pointer',
-                      transition: 'all 0.3s ease',
-                    }}
-                  />
-                ))}
-              </Stack>
-            </Box>
-          </Grid>
         </Grid>
       </Container>
     </Box>

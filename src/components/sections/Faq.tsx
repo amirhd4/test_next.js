@@ -12,7 +12,7 @@ import {
 import Grid from '@mui/material/Grid2';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import {intro, intro5} from "@/data/content";
+import { intro5 } from "@/data/content";
 import SectionTitle from "@/components/common/SectionTitle";
 
 const faqItems = [
@@ -62,7 +62,54 @@ export default function Faq() {
     >
       <Container maxWidth="lg">
         <Grid container spacing={{ xs: 4, md: 8 }} alignItems="center">
-          {/* ---------------- سمت راست: سوالات متداول (آکاردئون‌ها) ---------------- */}
+          <Grid size={{ xs: 12, md: 5 }}>
+            <Box
+              sx={{
+                position: 'relative',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: { xs: 'center', md: 'flex-start' },
+                textAlign: { xs: 'center', md: 'right' },
+              }}
+            >
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: -40,
+                  right: -20,
+                  width: '120%',
+                  height: '120%',
+                  backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px),
+                                    linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px)`,
+                  backgroundSize: '32px 32px',
+                  zIndex: 0,
+                  pointerEvents: 'none',
+                }}
+              />
+
+              <SectionTitle
+                title="سوالات متداول مهمانان گیلمار"
+                icon={<img src="/icons/Icon%20Container6.svg" alt="" />}
+                subtitle={intro5}
+              />
+
+              <Box
+                component="img"
+                src="/images/image2.png"
+                alt="سوالات متداول گیلمار"
+                sx={{
+                  position: 'relative',
+                  zIndex: 1,
+                  width: '100%',
+                  maxWidth: 380,
+                  height: 'auto',
+                  mt: 2,
+                  filter: 'drop-shadow(0px 20px 30px rgba(0, 0, 0, 0.08))',
+                }}
+              />
+            </Box>
+          </Grid>
+
           <Grid size={{ xs: 12, md: 7 }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               {faqItems.map((f) => {
@@ -90,7 +137,7 @@ export default function Faq() {
                   >
                     <AccordionSummary
                       sx={{
-                        flexDirection: 'row-reverse', // قرار دادن دکمه + در سمت راست
+                        flexDirection: 'row-reverse',
                         gap: 2,
                         '& .MuiAccordionSummary-content': {
                           margin: '12px 0',
@@ -148,58 +195,6 @@ export default function Faq() {
                   </Accordion>
                 );
               })}
-            </Box>
-          </Grid>
-
-          {/* ---------------- سمت چپ: تیتر و تصویر دوربین ---------------- */}
-          <Grid size={{ xs: 12, md: 5 }}>
-            <Box
-              sx={{
-                position: 'relative',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: { xs: 'center', md: 'flex-start' },
-                textAlign: { xs: 'center', md: 'right' },
-              }}
-            >
-              {/* الگوی شطرنجی پس‌زمینه سمت چپ */}
-              <Box
-                sx={{
-                  position: 'absolute',
-                  top: -40,
-                  right: -20,
-                  width: '120%',
-                  height: '120%',
-                  backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px),
-                                    linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px)`,
-                  backgroundSize: '32px 32px',
-                  zIndex: 0,
-                  pointerEvents: 'none',
-                }}
-              />
-
-              {/* آیکون فیروزه‌ای علامت سوال */}
-
-                <SectionTitle
-                  title="سوالات متداول مهمانان گیلمار"
-                  icon={<img src="/icons/Icon%20Container6.svg" alt="" />}
-                  subtitle={intro5}
-                />
-
-              <Box
-                component="img"
-                src="/images/image2.png"
-                alt="سوالات متداول گیلمار"
-                sx={{
-                  position: 'relative',
-                  zIndex: 1,
-                  width: '100%',
-                  maxWidth: 380,
-                  height: 'auto',
-                  mt: 2,
-                  filter: 'drop-shadow(0px 20px 30px rgba(0, 0, 0, 0.08))',
-                }}
-              />
             </Box>
           </Grid>
         </Grid>
