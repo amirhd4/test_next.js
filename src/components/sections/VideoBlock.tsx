@@ -1,7 +1,8 @@
+'use client';
+
 import { Box, Container, IconButton, Stack, Typography } from '@mui/material';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PillButton from '../common/PillButton';
-import SectionTitle from '../common/SectionTitle';
 import { intro4 } from '@/data/content';
 
 export default function VideoBlock() {
@@ -11,13 +12,14 @@ export default function VideoBlock() {
         sx={{
           position: 'relative',
           width: '100%',
-          minHeight: { xs: 500, md: 550 },
+          minHeight: { xs: 520, md: 550 },
           borderRadius: '24px',
           overflow: 'hidden',
           backgroundImage: `url('/images/forest-bg.jpg')`,
           backgroundSize: 'cover',
           backgroundPosition: 'left center',
           display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
           alignItems: 'center',
           justifyContent: 'flex-end',
           boxShadow: '0 20px 40px rgba(0,0,0,0.08)',
@@ -26,8 +28,8 @@ export default function VideoBlock() {
         <Box
           sx={{
             position: 'absolute',
-            left: { xs: '20%', md: '25%' },
-            top: '50%',
+            left: { xs: '50%', md: '25%' },
+            top: { xs: '28%', md: '50%' },
             transform: 'translate(-50%, -50%)',
             zIndex: 3,
           }}
@@ -37,12 +39,12 @@ export default function VideoBlock() {
             sx={{
               width: { xs: 64, md: 80 },
               height: { xs: 64, md: 80 },
-              bgcolor: 'rgba(255, 255, 255, 0.25)',
+              bgcolor: 'rgba(255, 255, 255, 0.3)',
               backdropFilter: 'blur(10px)',
-              border: '1px solid rgba(255, 255, 255, 0.4)',
-              boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.15)',
+              border: '1px solid rgba(255, 255, 255, 0.5)',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
               '&:hover': {
-                bgcolor: 'rgba(255, 255, 255, 0.4)',
+                bgcolor: 'rgba(255, 255, 255, 0.5)',
               },
             }}
           >
@@ -71,7 +73,7 @@ export default function VideoBlock() {
             right: 0,
             top: 0,
             height: '100%',
-            width: 'auto',
+            width: { xs: '100%', md: 'auto' },
             maxHeight: '100%',
             objectFit: 'cover',
             objectPosition: 'right',
@@ -100,12 +102,17 @@ export default function VideoBlock() {
             position: 'relative',
             zIndex: 2,
             width: { xs: '100%', md: '45%' },
-            p: { xs: 3, md: 6 },
+            p: { xs: 3, sm: 4, md: 6 },
+            mt: { xs: 'auto', md: 0 }, // متصل شدن به پایین در موبایل
             direction: 'rtl',
             ml: 'auto',
+            bgcolor: { xs: 'rgba(255, 255, 255, 0.92)', md: 'transparent' }, // پس‌زمینه روشن در موبایل جهت خوانایی
+            backdropFilter: { xs: 'blur(8px)', md: 'none' },
+            borderTopLeftRadius: { xs: '24px', md: 0 },
+            borderTopRightRadius: { xs: '24px', md: 0 },
           }}
         >
-          <Stack spacing={2.5} alignItems="flex-start">
+          <Stack spacing={2} alignItems="flex-start">
             <Box
               sx={{
                 width: 44,
@@ -126,7 +133,7 @@ export default function VideoBlock() {
               sx={{
                 fontWeight: 800,
                 color: '#1f2937',
-                fontSize: { xs: '1.5rem', md: '2rem' },
+                fontSize: { xs: '1.25rem', sm: '1.5rem', md: '2rem' },
               }}
             >
               تور ویدیویی اقامتگاه گیلمار
@@ -135,16 +142,16 @@ export default function VideoBlock() {
             <Typography
               variant="body1"
               sx={{
-                lineHeight: 1.9,
-                color: '#6b7280',
-                fontSize: { xs: '0.9rem', md: '0.95rem' },
+                lineHeight: 1.8,
+                color: '#4b5563',
+                fontSize: { xs: '0.85rem', md: '0.95rem' },
               }}
             >
               {intro4}
             </Typography>
 
             <PillButton
-              icon={<img src="/icons/Button Background.svg" />}
+              icon={<img src="/icons/Button Background.svg" alt="" />}
               sx={{
                 bgcolor: '#10b981',
                 color: '#fff',
@@ -164,11 +171,12 @@ export default function VideoBlock() {
           src="/icons/compass.svg"
           alt="Compass"
           sx={{
+            display: { xs: 'none', sm: 'block' },
             position: 'absolute',
             bottom: 20,
-            right: '35%',
-            width: { xs: 50, md: 134 },
-            height: { xs: 50, md: 134 },
+            right: { sm: '45%', md: '35%' },
+            width: { sm: 80, md: 134 },
+            height: { sm: 80, md: 134 },
             opacity: 0.8,
             zIndex: 2,
             pointerEvents: 'none',

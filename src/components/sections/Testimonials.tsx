@@ -10,7 +10,6 @@ const items = [
     role: 'مهمان',
     text: 'اقامت در گیلمار یکی از بهترین تجربه‌های سفر من بود. فضای کاملاً آرام، طبیعت بکر و مهمان‌نوازی صمیمی باعث شد چند روزی که اینجا بودم واقعاً از هیاهوی شهر دور بشم.',
     avatar: '/images/avatars/user1.png',
-    // موقعیت آواتار روی نقشه (درصد)
     position: { top: '0%', left: '50%', transform: 'translate(-50%, -50%)', size: 70 },
   },
   {
@@ -85,8 +84,7 @@ export default function Testimonials() {
         direction: 'rtl',
       }}
     >
-      <Container maxWidth="lg">
-        {/* نشان/آیکون بالای بخش */}
+      <Container maxWidth="lg" >
         <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
           <Box
             sx={{
@@ -114,12 +112,11 @@ export default function Testimonials() {
                 fontWeight: 'bold',
               }}
             >
-              💬
+              <img src="/icons/Icon%20Container7.png" alt=""/>
             </Box>
           </Box>
         </Box>
 
-        {/* عنوان و زیرعنوان */}
         <Box sx={{ textAlign: 'center', mb: 8 }}>
           <Typography
             variant="h4"
@@ -133,57 +130,53 @@ export default function Testimonials() {
           </Typography>
         </Box>
 
-        {/* منطقه اصلی محتوا همراه با نقشه و آواتارها */}
         <Box
           sx={{
             position: 'relative',
             maxWidth: 1200,
             mx: 'auto',
-            minHeight: { xs: 450, md: 480 },
+            minHeight: { xs: 'auto', md: 480 },
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-
-            // تصویر نقشه نقطه‌ای در پس‌زمینه
             backgroundImage: `url('/images/dotted-map.svg')`,
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center center',
             backgroundSize: 'contain',
           }}
         >
-          {/* آواتارهای شناور دور کارت */}
-          {items.map((item, index) => {
-            const isSelected = index === step;
-            return (
-              <Avatar
-                key={item.id}
-                src={item.avatar}
-                alt={item.name}
-                onClick={() => setStep(index)}
-                sx={{
-                  position: 'absolute',
-                  cursor: 'pointer',
-                  width: isSelected ? 72 : item.position.size,
-                  height: isSelected ? 72 : item.position.size,
-                  border: isSelected ? '3px solid #00C897' : '2px solid #FFFFFF',
-                  boxShadow: isSelected
-                    ? '0 10px 25px rgba(0, 200, 151, 0.3)'
-                    : '0 4px 12px rgba(0,0,0,0.08)',
-                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                  zIndex: isSelected ? 5 : 2,
-                  '&:hover': {
-                    transform: `${item.position.transform || ''} scale(1.15)`,
-                  },
-                  top: item.position.top,
-                  left: item.position.left,
-                  right: item.position.right,
-                  transform: item.position.transform,
-                }}
-              />
-            );
-          })}
-
-          {/* کارت اصلی نظر */}
+        {items.map((item, index) => {
+          const isSelected = index === step;
+          return (
+            <Avatar
+              key={item.id}
+              src={item.avatar}
+              alt={item.name}
+              onClick={() => setStep(index)}
+              sx={{
+                // در موبایل نمایش داده نشود تا صفحه شلوغ و خراب نشود
+                display: { xs: 'none', md: 'flex' },
+                position: 'absolute',
+                cursor: 'pointer',
+                width: isSelected ? 72 : item.position.size,
+                height: isSelected ? 72 : item.position.size,
+                border: isSelected ? '3px solid #00C897' : '2px solid #FFFFFF',
+                boxShadow: isSelected
+                  ? '0 10px 25px rgba(0, 200, 151, 0.3)'
+                  : '0 4px 12px rgba(0,0,0,0.08)',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                zIndex: isSelected ? 5 : 2,
+                '&:hover': {
+                  transform: `${item.position.transform || ''} scale(1.15)`,
+                },
+                top: item.position.top,
+                left: item.position.left,
+                right: item.position.right,
+                transform: item.position.transform,
+              }}
+            />
+          );
+        })}
           <Paper
             elevation={0}
             sx={{
@@ -236,7 +229,6 @@ export default function Testimonials() {
           </Paper>
         </Box>
 
-        {/* نقاط اسلایدر زیر کارت */}
         <Stack direction="row" spacing={1} justifyContent="center" alignItems="center" sx={{ mt: 4 }}>
           {items.map((_, i) => (
             <Box

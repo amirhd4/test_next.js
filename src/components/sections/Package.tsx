@@ -1,12 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import {Box, Container, Paper, Stack, Typography} from '@mui/material';
+import { Box, Container, Paper, Stack, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import PillButton from '../common/PillButton';
 import SectionTitle from "@/components/common/SectionTitle";
 
-// داده‌های پکیج‌ها
 const packages = [
   {
     id: 1,
@@ -23,23 +22,7 @@ const packages = [
       { id: 1, title: '۱ شب اقامت', icon: '/icons/tent.png' },
       { id: 2, title: 'صبحانه', icon: '/icons/breakfast.png' },
       { id: 3, title: 'قایق سواری', icon: '/icons/boat.png' },
-      { id: 4, title: 'تور جنگل نوردی', icon: '/icons/mountain.png' },
-    ],
-  },
-  {
-    id: 2,
-    title: 'پکیج خانوادگی گیلمار',
-    description: 'شامل: ۲ شب اقامت + تمام وعده‌های غذایی + تور کامل گیلان‌گردی',
-    price: '۴,۵۰۰,۰۰۰ تومان',
-    images: [
-      '/images/packages/family-1.jpg',
-      '/images/packages/family-2.jpg',
-    ],
-    features: [
-      { id: 1, title: '۲ شب اقامت', icon: '/icons/tent.png' },
-      { id: 2, title: 'پذیرایی کامل', icon: '/icons/breakfast.png' },
-      { id: 3, title: 'قایق سواری', icon: '/icons/boat.png' },
-      { id: 4, title: 'گشت شهری', icon: '/icons/mountain.png' },
+      { id: 4, title: 'تور جنگل', icon: '/icons/mountain.png' },
     ],
   },
 ];
@@ -54,58 +37,87 @@ export default function Package() {
     <Box sx={{ py: { xs: 6, md: 10 }, bgcolor: '#F8FAFC', direction: 'rtl' }}>
       <Container maxWidth="lg">
         <Grid container spacing={{ xs: 4, md: 8 }} alignItems="center">
-          {/* ---------------- سمت راست: بخش متنی و اطلاعات ---------------- */}
+
+          {/* ---------------- سمت راست: محتوا ---------------- */}
           <Grid size={{ xs: 12, md: 6 }}>
             <Stack spacing={3} alignItems="flex-start">
               <Box>
-
-                <SectionTitle title={"پکیج‌های ویژه اقامت در گیلمار"} icon={<img src="/icons/Icon%20Container2.svg" />} align="start" />
-
-                
-                <Typography variant="body2" sx={{ color: '#6B7280', fontSize: '0.95rem' }}>
-                  پکیج‌های ویژه ما ترکیبی از اقامت آرام، غذاهای محلی و تفریحات هیجان‌انگیز در دل طبیعت است.
+                <SectionTitle
+                  title={"پکیج‌های ویژه اقامت در گیلمار"}
+                  icon={<img src="/icons/Icon%20Container2.svg" alt="" />}
+                  align="start"
+                />
+                <Typography variant="body2" sx={{ color: '#6B7280', fontSize: '0.95rem', mt: 1 }}>
+                  پکیج‌های ویژه ما ترکیبی از اقامت آرام، غذاهای محلی و تفریحات هیجان‌انگیز است.
                 </Typography>
               </Box>
 
-              <Box sx={{ pt: 1 }}>
-                <Typography variant="h6" sx={{ fontWeight: 700, color: '#111827', mb: 0.5 }}>
+              {/* سوئیتچ پکیج‌ها (افزوده شده جهت کارایی بهتر) */}
+              <Stack direction="row" spacing={1}>
+                {packages.map((pkg, idx) => (
+                  <Paper
+                    key={pkg.id}
+                    onClick={() => {
+                      setActivePackageIndex(idx);
+                      setActiveImageIndex(0);
+                    }}
+                    elevation={0}
+                    sx={{
+                      px: 2,
+                      py: 0.8,
+                      borderRadius: '20px',
+                      cursor: 'pointer',
+                      bgcolor: activePackageIndex === idx ? '#00C897' : '#E2E8F0',
+                      color: activePackageIndex === idx ? '#FFFFFF' : '#475569',
+                      fontWeight: 700,
+                      fontSize: '0.85rem',
+                      transition: 'all 0.2s ease',
+                    }}
+                  >
+                    {pkg.title}
+                  </Paper>
+                ))}
+              </Stack>
+
+              <Box sx={{ pt: 0.5 }}>
+                <Typography variant="h6" sx={{ fontWeight: 800, color: '#111827', mb: 0.5, fontSize: { xs: '1.1rem', md: '1.25rem' } }}>
                   {currentPackage.title}
                 </Typography>
-                <Typography variant="body2" sx={{ color: '#6B7280' }}>
+                <Typography variant="body2" sx={{ color: '#6B7280', lineHeight: 1.7 }}>
                   {currentPackage.description}
                 </Typography>
               </Box>
 
+              {/* ویژگی‌ها: تنظیم ریسپانسیو شبکه‌ای */}
               <Grid container spacing={1.5} width="100%">
                 {currentPackage.features.map((feature) => (
                   <Grid key={feature.id} size={{ xs: 6, sm: 3 }}>
                     <Paper
                       elevation={0}
                       sx={{
-                        p: 2,
+                        p: 1.5,
                         textAlign: 'center',
                         borderRadius: '16px',
                         bgcolor: '#FFFFFF',
-                        boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
                         border: '1px solid #F1F5F9',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        gap: 1,
-                        height: 100,
+                        gap: 0.8,
+                        minHeight: 90,
                       }}
                     >
                       <Box
                         component="img"
                         src={feature.icon}
                         alt={feature.title}
-                        sx={{ width: 36, height: 36, objectFit: 'contain' }}
+                        sx={{ width: 30, height: 30, objectFit: 'contain' }}
                       />
                       <Typography
-                        fontSize={12}
+                        fontSize={{ xs: 11, sm: 12 }}
                         fontWeight={600}
-                        sx={{ color: '#334155', whiteSpace: 'nowrap' }}
+                        sx={{ color: '#334155' }}
                       >
                         {feature.title}
                       </Typography>
@@ -114,29 +126,37 @@ export default function Package() {
                 ))}
               </Grid>
 
-              {/* دکمه رزرو و قیمت */}
               <Stack
-                direction="row"
+                direction={{ xs: 'column-reverse', sm: 'row' }}
                 justifyContent="space-between"
-                alignItems="center"
+                alignItems={{ xs: 'stretch', sm: 'center' }}
+                gap={2}
                 width="100%"
-                sx={{ pt: 2 }}
+                sx={{ pt: 1 }}
               >
                 <PillButton
-                  icon={<img src="/icons/Button%20Background.svg" />}
+                  icon={<img src="/icons/Button%20Background.svg" alt="" />}
                   sx={{
                     bgcolor: '#00C897',
                     color: '#fff',
                     px: 3.5,
                     py: 1.2,
                     borderRadius: '50px',
+                    justifyContent: 'center',
                     '&:hover': { bgcolor: '#00B084' },
                   }}
                 >
                   همین حالا رزرو کن
                 </PillButton>
 
-                <Typography variant="body1" sx={{ fontWeight: 700, color: '#1F2937' }}>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    fontWeight: 700,
+                    color: '#1F2937',
+                    textAlign: { xs: 'center', sm: 'right' }
+                  }}
+                >
                   قیمت:{' '}
                   <Box component="span" sx={{ color: '#00C897', fontWeight: 800 }}>
                     {currentPackage.price}
@@ -146,21 +166,19 @@ export default function Package() {
             </Stack>
           </Grid>
 
-          {/* ---------------- سمت چپ: تصویر و بریدگی‌های خاص فیگما ---------------- */}
           <Grid size={{ xs: 12, md: 6 }}>
             <Box
               sx={{
                 position: 'relative',
                 width: '100%',
                 maxWidth: 480,
-                height: { xs: 420, md: 520 },
+                height: { xs: 320, sm: 400, md: 520 },
                 mx: 'auto',
                 borderRadius: '24px',
                 overflow: 'hidden',
                 boxShadow: '0 20px 40px rgba(0,0,0,0.08)',
               }}
             >
-              {/* عکس اصلی کلبه/طبیعت */}
               <Box
                 component="img"
                 src={currentPackage.images[activeImageIndex]}
@@ -173,42 +191,39 @@ export default function Package() {
                 }}
               />
 
-              {/* ۱. بریدگی/باکس سفید بالای سمت چپ عکس (برش شکل فیگما) */}
               <Box
                 sx={{
                   position: 'absolute',
                   top: 0,
                   left: 0,
-                  width: 140,
-                  height: 100,
-                  bgcolor: '#F8FAFC', // هم‌رنگ پس‌زمینه اصلی برای ایجاد حس بریدگی
+                  width: { xs: 120, md: 140 },
+                  height: { xs: 80, md: 100 },
+                  bgcolor: '#F8FAFC',
                   borderBottomRightRadius: '20px',
                   zIndex: 2,
                 }}
               />
-
-              {/* کارت سفید شناور متنی روی بریدگی بالا */}
               <Box
                 sx={{
                   position: 'absolute',
-                  top: 15,
-                  left: 15,
-                  maxWidth: 120,
-                  p: 1.5,
+                  top: 10,
+                  left: 10,
+                  maxWidth: { xs: 100, md: 120 },
+                  p: 1.2,
                   bgcolor: '#FFFFFF',
-                  borderRadius: '14px',
+                  borderRadius: '12px',
                   boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
                   zIndex: 3,
                 }}
               >
-                <Typography fontSize={11} fontWeight={700} sx={{ color: '#1E293B', lineHeight: 1.5 }}>
+                <Typography fontSize={{ xs: 9.5, md: 11 }} fontWeight={700} sx={{ color: '#1E293B', lineHeight: 1.4 }}>
                   تجربه اقامتی اصیل در دل طبیعت شمال
                 </Typography>
               </Box>
 
-              {/* ۲. بریدگی/باکس سفید بالایی وسط-راست */}
               <Box
                 sx={{
+                  display: { xs: 'none', sm: 'block' },
                   position: 'absolute',
                   top: 0,
                   right: 80,
@@ -220,10 +235,9 @@ export default function Package() {
                   zIndex: 2,
                 }}
               />
-
-              {/* ۳. بریدگی/باکس سفید پایین (دسته‌بندی برش فیگما) */}
               <Box
                 sx={{
+                  display: { xs: 'none', sm: 'block' },
                   position: 'absolute',
                   bottom: 0,
                   right: 90,
@@ -236,14 +250,13 @@ export default function Package() {
                 }}
               />
 
-              {/* خطوط اسلایدر در پایین عکس (Pagination Lines) */}
               <Stack
                 direction="row"
                 spacing={1}
                 sx={{
                   position: 'absolute',
-                  bottom: 25,
-                  left: 30,
+                  bottom: { xs: 15, md: 25 },
+                  left: { xs: 20, md: 30 },
                   zIndex: 3,
                 }}
               >
@@ -252,7 +265,7 @@ export default function Package() {
                     key={index}
                     onClick={() => setActiveImageIndex(index)}
                     sx={{
-                      width: index === activeImageIndex ? 40 : 20,
+                      width: index === activeImageIndex ? 32 : 16,
                       height: 4,
                       borderRadius: 2,
                       bgcolor: index === activeImageIndex ? '#FFFFFF' : 'rgba(255, 255, 255, 0.4)',

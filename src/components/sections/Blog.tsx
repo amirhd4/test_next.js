@@ -1,4 +1,5 @@
-import { Box, Chip, Container, Grid, Stack, Typography } from '@mui/material';
+import { Box, Chip, Container, Stack, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import SectionTitle from '../common/SectionTitle';
 import ImageBox from '../common/ImageBox';
 
@@ -9,6 +10,7 @@ const blogPosts = [
     excerpt: 'از قایق‌سواری در سپیدرود تا شب‌نشینی دور آتش در هوای پاییزی گیلان...',
     date: '۱۰ مهر ۱۴۰۳',
     readTime: '۵ دقیقه مطالعه',
+    image: "/images/gilmar-1.png"
   },
   {
     id: 2,
@@ -16,6 +18,7 @@ const blogPosts = [
     excerpt: 'همه آنچه باید درباره انتخاب بهترین اقامتگاه بوم‌گردی و زمان مناسب سفر بدانید...',
     date: '۰۵ مهر ۱۴۰۳',
     readTime: '۷ دقیقه مطالعه',
+    image: "/images/gilmar-1.png"
   },
   {
     id: 3,
@@ -23,6 +26,7 @@ const blogPosts = [
     excerpt: 'آشنایی با میرزاقاسمی، باقلاقاتوق و سایر خوراکی‌های لذیذ گیلانی در اقامتگاه...',
     date: '۲۸ شهریور ۱۴۰۳',
     readTime: '۴ دقیقه مطالعه',
+    image: "/images/gilmar-1.png"
   },
 ];
 
@@ -30,6 +34,7 @@ export default function Blog() {
   return (
     <Container sx={{ py: { xs: 5, md: 8 } }}>
       <SectionTitle
+        icon={<img src="/icons/Icon%20Container5.svg" alt=""/> }
         title="مجله و مقالات گیلمار؛ روایت سفر طبیعت و آرامش"
         subtitle="با مقالات مجله گیلمار بیشتر درباره جاذبه‌های گردشگری، فرهنگ محلی گیلان و نکات سفر به شمال بخوانید."
       />
@@ -38,12 +43,13 @@ export default function Blog() {
         {blogPosts.map((post) => (
           <Grid key={post.id} size={{ xs: 12, md: 4 }}>
             <ImageBox
-              ratio="4 / 5"
+              src={post.image}
+              ratio={{ xs: '4 / 3', md: '4 / 5' }}
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                p: 3,
+                p: { xs: 2, md: 3 }, // Mindre padding på mobil
                 color: '#ffffff',
                 cursor: 'pointer',
                 transition: 'transform 0.3s ease',
