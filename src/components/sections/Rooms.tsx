@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { Box, Container, Grid, Typography, Chip, Stack } from '@mui/material';
+import { Box, Container, Typography, Chip, Stack } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import SectionTitle from '../common/SectionTitle';
 import ImageBox from '../common/ImageBox';
-import { intro } from '@/data/content';
+import {intro, intro3} from '@/data/content';
 
 const roomTypes = [
   {
@@ -14,6 +15,7 @@ const roomTypes = [
     price: '۲,۰۰۰,۰۰۰ تومان',
     period: 'هر شب اقامت',
     badge: 'محبوب‌ترین',
+    image: '/images/rooms/room1.jpg',
   },
   {
     id: 2,
@@ -22,6 +24,7 @@ const roomTypes = [
     price: '۳,۲۰۰,۰۰۰ تومان',
     period: 'هر شب اقامت',
     badge: 'ویژه خانواده',
+    image: '/images/rooms/room2.jpg',
   },
   {
     id: 3,
@@ -30,6 +33,7 @@ const roomTypes = [
     price: '۲,۵۰۰,۰۰۰ تومان',
     period: 'هر شب اقامت',
     badge: 'ارامش مطلق',
+    image: '/images/rooms/room3.jpg',
   },
   {
     id: 4,
@@ -38,6 +42,7 @@ const roomTypes = [
     price: '۵,۵۰۰,۰۰۰ تومان',
     period: 'هر شب اقامت',
     badge: 'لوکس',
+    image: '/images/rooms/room4.jpg',
   },
 ];
 
@@ -48,12 +53,14 @@ export default function Rooms() {
     <Container sx={{ py: { xs: 5, md: 8 } }}>
       <SectionTitle
         title="انواع اتاق‌های اقامتگاه گیلمار"
-        subtitle={intro}
+        icon={<img src="/icons/Icon%20Container4.svg" alt="" />}
+        subtitle={intro3}
       />
       <Grid container spacing={3} sx={{ mt: 4 }}>
         {roomTypes.map((r) => (
           <Grid key={r.id} size={{ xs: 12, sm: 6, md: 3 }}>
             <ImageBox
+              src={r.image}
               ratio="3 / 4"
               onMouseEnter={() => setActiveRoom(r.id)}
               onMouseLeave={() => setActiveRoom(null)}
